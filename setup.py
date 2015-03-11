@@ -1,25 +1,15 @@
-from glob import glob
 import os
 from setuptools import setup
 
-PACKAGE_VERSION = '0.1'
+PACKAGE_VERSION = '0.1.3'
 PACKAGE_NAME = 'django-couchdb-cache'
 
-EXAMPLES_TARGET_DIR = 'share/{}/examples'.format(PACKAGE_NAME)
+EXAMPLES_TARGET_DIR = 'share/{}/'.format(PACKAGE_NAME)
 EXAMPLES_LOCAL_DIR = 'examples'
-EXAMPLES = (
-    'test_project',
-)
 
 
 def get_data_files():
-    data_files = []
-
-    for example in EXAMPLES:
-        target_dir = os.path.join(EXAMPLES_TARGET_DIR, example)
-        target_files = glob(os.path.join(EXAMPLES_LOCAL_DIR, example, '*'))
-        data_files.append((target_dir, target_files))
-
+    data_files = [(os.path.join(EXAMPLES_TARGET_DIR, root), [os.path.join(root, f) for f in files]) for root, dirs, files in os.walk(EXAMPLES_LOCAL_DIR)]
     return data_files
 
 setup(
