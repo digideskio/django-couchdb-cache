@@ -39,7 +39,10 @@ class CouchDBCache(object):
         self._store_in_db(doc)
 
     def invalidate(self, id):
-        self._cache.delete(self._build_cache_key(id))
+        try:
+            self._cache.delete(self._build_cache_key(id))
+        except Exception:
+            raise exceptions.WriteError()
 
     def _build_cache_prefix(self, db):
         db_name_parts = db.split('/')
@@ -54,10 +57,16 @@ class CouchDBCache(object):
         return self._cache_prefix + id
 
     def _read_from_cache(self, id):
-        return self._cache.get(self._build_cache_key(id))
+        try:
+            return self._cache.get(self._build_cache_key(id))
+        except Exception:
+            raise exceptions.ReadError()
 
     def _store_in_cache(self, id, doc):
-        self._cache.set(self._build_cache_key(id), doc, self._cache_ttl)
+        try:
+            self._cache.set(self._build_cache_key(id), doc, self._cache_ttl)
+        except Exception:
+            raise exceptions.WriteError()
 
     def _read_from_db(self, id):
         try:

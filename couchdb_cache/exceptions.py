@@ -8,3 +8,11 @@ class InvalidDocumentError(CouchDBCacheError):
 
 class BadConfigurationError(CouchDBCacheError):
     pass
+
+
+class ReadError(CouchDBCacheError):
+    pass
+
+
+class WriteError(CouchDBCacheError):
+    pass
