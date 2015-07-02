@@ -1,7 +1,7 @@
 import os
 from setuptools import setup
 
-PACKAGE_VERSION = '0.1.3'
+PACKAGE_VERSION = '0.2.0'
 PACKAGE_NAME = 'django-couchdb-cache'
 
 EXAMPLES_TARGET_DIR = 'share/{}/'.format(PACKAGE_NAME)
